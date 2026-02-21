@@ -7,9 +7,9 @@ export function cleanInput(input: string): string[] {
     .split(/\s+/);
 } 
 
-export function startREPL(state:State){
+export async function startREPL(state:State){
 state.rl.prompt();
-state.rl.on("line", (line)=>{
+state.rl.on("line", async(line)=>{
     const arr= cleanInput(line); // ["",""]
     if (arr.length===0){
       state.rl.prompt();
@@ -19,7 +19,7 @@ state.rl.on("line", (line)=>{
     const target= state.commands[commandWord];
     if(target){
      try{
-       target.callback(state);
+       await target.callback(state);
      }catch(err){
        throw new Error("Error!");
      }
