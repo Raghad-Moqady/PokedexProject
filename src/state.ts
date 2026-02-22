@@ -7,6 +7,7 @@ import { commandMapBack } from "./command_map_back.js";
 import { Cache } from "./pokecache.js";
 import { commandExplore } from "./command_explore.js";
 import { commandCatch } from "./command_catch.js";
+import { commandInspect } from "./command_inspect.js";
 
 export type CLICommand = {
   name: string;
@@ -49,16 +50,21 @@ export function initState():State{
          description: "Displays previous locations",
          callback: commandMapBack,
          },
-        explore : {
+      explore : {
          name: "explore ",
          description: "Explore",
          callback: commandExplore,
          },
-         catch: {
+      catch: {
           name: "catch",
           description:"Catch",
           callback: commandCatch,
-         }
+         },
+      inspect:{
+        name: "inspect",
+        description:"Inspect",
+        callback: commandInspect,
+      }
          
  }
  const cache=new Cache(60000);
