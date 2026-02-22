@@ -132,15 +132,15 @@ export type Pokemon={
   height:number;
   weight:number;
   stats:{
-      base_stat: 35,
+      base_stat: number,
       stat: {
-        name: "hp",
+        name: string,
       }
     }[];
   base_experience: number;
   types:  {
       type: {
-        name: "electric",
+        name: string,
       }
     }[];
 }
