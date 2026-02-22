@@ -21,17 +21,33 @@ export class PokeAPI {
     return data;
   }
 
-  async fetchLocation(locationName: string): Promise<Location> {
-     const url = `${PokeAPI.baseURL}/location/${locationName}`;
-    const cachedData = this.cache.get<Location>(url);
-     if (cachedData) {
+  // async fetchLocation(locationName: string): Promise<Location> {
+  //    const url = `${PokeAPI.baseURL}/location/${locationName}`;
+  //   const cachedData = this.cache.get<Location>(url);
+  //    if (cachedData) {
+  //     console.log("Using cache for:", url);
+  //     return cachedData;
+  //   }
+  //    const response= await fetch(url);
+  //    const data:Location = await response.json();
+  //     this.cache.add(url,data);
+  //    return data;
+  // }
+ 
+    async fetchLocation(areaName: string): Promise<LocationArea> {
+    const url = `${PokeAPI.baseURL}/location-area/${areaName}`;
+
+    const cachedData = this.cache.get<LocationArea>(url);
+    if (cachedData) {
       console.log("Using cache for:", url);
       return cachedData;
     }
-     const response= await fetch(url);
-     const data:Location = await response.json();
-      this.cache.add(url,data);
-     return data;
+
+    const response = await fetch(url);
+    const data: LocationArea = await response.json();
+
+    this.cache.add(url, data);
+    return data;
   }
 }
 
@@ -45,35 +61,45 @@ export type ShallowLocations = {
   }[];
 };
 
-export type Location = {
-   areas: 
-    {
-      name: string,
-      url: string
-    }[]
-  ,
-  game_indices: 
-    {
-      game_index: number,
-      generation: {
-        name: string,
-        url: string
-      }
-    }[]
-    ,
-  id: number,
-  name: string,
-  names: 
-    {
-      language: {
-        name: string,
-        url: string
-      },
-      name: string
-    }[]
-  ,
-  region: {
-    name:string,
-    url: string
-  }
+//غير مستخدم لحد الان 
+// export type Location = {
+//    areas: 
+//     {
+//       name: string,
+//       url: string
+//     }[]
+//   ,
+//   game_indices: 
+//     {
+//       game_index: number,
+//       generation: {
+//         name: string,
+//         url: string
+//       }
+//     }[]
+//     ,
+//   id: number,
+//   name: string,
+//   names: 
+//     {
+//       language: {
+//         name: string,
+//         url: string
+//       },
+//       name: string
+//     }[]
+//   ,
+//   region: {
+//     name:string,
+//     url: string
+//   }
+// };
+
+export type LocationArea = {
+  pokemon_encounters: {
+    pokemon: {
+      name: string;
+      url: string;
+    };
+  }[];
 };

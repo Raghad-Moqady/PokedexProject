@@ -16,10 +16,11 @@ state.rl.on("line", async(line)=>{
       return;  
     } 
     const commandWord= arr[0];
+    const args = arr.slice(1);
     const target= state.commands[commandWord];
     if(target){
      try{
-       await target.callback(state);
+       await target.callback(state,...args);
      }catch(err){
        throw new Error("Error!");
      }

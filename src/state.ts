@@ -5,11 +5,12 @@ import { PokeAPI } from "./pokeapi.js";
 import { commandMap } from "./command_map.js";
 import { commandMapBack } from "./command_map_back.js";
 import { Cache } from "./pokecache.js";
+import { commandExplore } from "./command_explore.js";
 
 export type CLICommand = {
   name: string;
   description: string;
-  callback: (state: State) => Promise<void>;
+  callback: (state: State, ...args: string[]) => Promise<void>;
 };
 export type State={
     rl: Interface;
@@ -46,6 +47,12 @@ export function initState():State{
          description: "Displays previous locations",
          callback: commandMapBack,
          },
+        explore : {
+         name: "explore ",
+         description: "Explore",
+         callback: commandExplore,
+         },
+         
  }
  const cache=new Cache(60000);
  const pokeapi = new PokeAPI(cache);
