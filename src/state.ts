@@ -4,6 +4,7 @@ import { commandHelp } from "./command_help.js";
 import { PokeAPI } from "./pokeapi.js";
 import { commandMap } from "./command_map.js";
 import { commandMapBack } from "./command_map_back.js";
+import { Cache } from "./pokecache.js";
 
 export type CLICommand = {
   name: string;
@@ -46,7 +47,8 @@ export function initState():State{
          callback: commandMapBack,
          },
  }
- const pokeapi = new PokeAPI();
+ const cache=new Cache(60000);
+ const pokeapi = new PokeAPI(cache);
  const nextLocationsURL= null;
  const prevLocationsURL= null;
  return {
