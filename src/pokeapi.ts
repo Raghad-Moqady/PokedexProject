@@ -49,6 +49,21 @@ export class PokeAPI {
     this.cache.add(url, data);
     return data;
   }
+  async fetchPokemonInfo(name: string): Promise<Pokemon> {
+    const url = `${PokeAPI.baseURL}/pokemon/${name}`;
+
+    const cachedData = this.cache.get<Pokemon>(url);
+    if (cachedData) {
+      console.log("Using cache for:", url);
+      return cachedData;
+    }
+
+    const response = await fetch(url);
+    const data: Pokemon = await response.json();
+
+    this.cache.add(url, data);
+    return data;
+  }
 }
 
 export type ShallowLocations = {
@@ -103,3 +118,10 @@ export type LocationArea = {
     };
   }[];
 };
+
+export type Pokemon={
+  id: number;
+  name: string;
+  base_experience: number;
+  types: string[];
+}
